@@ -13,6 +13,7 @@ export class ManageCoursePage extends Component {
     errors: {}
   };
   this.updateCourseState = this.updateCourseState.bind(this);
+  this.saveCourse = this.saveCourse.bind(this);
 }
 
 updateCourseState(event) {
@@ -22,12 +23,18 @@ updateCourseState(event) {
   return this.setState({course: course});
 }
 
+saveCourse(event) {
+  event.preventDefault();
+  this.props.actions.saveCourse(this.state.course);
+}
+
   render() {
     return (
 
         <CourseForm
           allAuthors={this.props.authors}
           onChange={this.updateCourseState}
+          onSave={this.saveCourse}
           course={this.state.course}
           errors={this.state.errors}
         />
@@ -38,8 +45,8 @@ updateCourseState(event) {
 
 ManageCoursePage.propTypes = {
   course: PropTypes.object.isRequired,
-  authors: PropTypes.array.isRequired
-//  actions: PropTypes.object.isRequired
+  authors: PropTypes.array.isRequired,
+  actions: PropTypes.object.isRequired
 };
 
  function mapStateToProps(state,ownProps) {
